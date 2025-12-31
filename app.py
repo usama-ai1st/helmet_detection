@@ -1,5 +1,4 @@
 import streamlit as st
-import cv2
 import numpy as np
 from PIL import Image
 from ultralytics import YOLO
@@ -84,4 +83,5 @@ if uploaded_file is not None:
 
 # Footer
 st.markdown('<div class="footer">Built with Streamlit and YOLOv11</div>', unsafe_allow_html=True)
+
 
