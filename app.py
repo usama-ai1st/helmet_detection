@@ -45,7 +45,7 @@ st.write("")
 # Load model
 @st.cache_resource
 def load_model():
-    return YOLO("D:\SMIT\Helmet no Helmet\helmet-no-helmet.pt")   # change path if needed
+    return YOLO("helmet-no-helmet.pt")   # change path if needed
 
 model = load_model()
 
@@ -84,3 +84,4 @@ if uploaded_file is not None:
 
 # Footer
 st.markdown('<div class="footer">Built with Streamlit and YOLOv11</div>', unsafe_allow_html=True)
+
