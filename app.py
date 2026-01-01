@@ -55,33 +55,33 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file is not None:
-    image = Image.open(uploaded_file)
+    image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", use_container_width=True)
 
     if st.button("Run Detection"):
         with st.spinner("Detecting helmets..."):
             img_array = np.array(image)
             results = model(img_array)
-
             annotated_img = results[0].plot()
-            annotated_img = cv2.cvtColor(annotated_img, cv2.COLOR_BGR2RGB)
 
         st.success("Detection Completed")
         st.image(annotated_img, caption="Detection Result", use_container_width=True)
 
-        # Show detections summary
         st.subheader("Detection Summary")
         boxes = results[0].boxes
-        if boxes is not None and len(boxes) > 0:
-            for box in boxes:
-                cls_id = int(box.cls[0])
-                conf = float(box.conf[0])
-                label = model.names[cls_id]
+
+        if boxes is not None and boxes.cls is not None:
+            class_ids = boxes.cls.cpu().numpy()
+            confidences = boxes.conf.cpu().numpy()
+
+            for cls_id, conf in zip(class_ids, confidences):
+                label = model.names[int(cls_id)]
                 st.write(f"• {label} with confidence {conf:.2f}")
         else:
             st.write("No objects detected")
 
 # Footer
 st.markdown('<div class="footer">Built with Streamlit and YOLOv11</div>', unsafe_allow_html=True)
+
 
 
