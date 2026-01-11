@@ -1,10 +1,9 @@
 streamlit
-ultralytics
+ultralytics==8.0.34
 torch
 torchvision
 opencv-python-headless
-opencv-python==0.0.0
-pillow
 numpy
+pillow
 streamlit-webrtc
 av
